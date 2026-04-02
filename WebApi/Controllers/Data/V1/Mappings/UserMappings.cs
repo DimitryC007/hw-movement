@@ -1,7 +1,7 @@
-using Api.Controllers.Users.V1.Models.Requests;
+using Api.Controllers.Data.V1.Models.Requests;
 using Domain.Users;
 
-namespace Api.Controllers.Users.V1.Mappings;
+namespace Api.Controllers.Data.V1.Mappings;
 
 internal static class UserMappings
 {

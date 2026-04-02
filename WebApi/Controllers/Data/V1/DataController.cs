@@ -1,23 +1,23 @@
-using Api.Controllers.Users.V1.Mappings;
-using Api.Controllers.Users.V1.Models.Requests;
-using Api.Controllers.Users.V1.Models.Responses;
+using Api.Controllers.Data.V1.Mappings;
+using Api.Controllers.Data.V1.Models.Requests;
+using Api.Controllers.Data.V1.Models.Responses;
 using Application.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers.Users;
+namespace Api.Controllers.Data;
 
 /// <summary>
 /// Manages user resources.
 /// </summary>
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/v{v:apiVersion}/users")]
-public class UserController : ControllerBase
+[Route("api/v{v:apiVersion}/[controller]")]
+public class DataController : ControllerBase
 {
     private readonly IUserService _userService;
 
-    public UserController(IUserService userService)
+    public DataController(IUserService userService)
     {
         _userService = userService;
     }
