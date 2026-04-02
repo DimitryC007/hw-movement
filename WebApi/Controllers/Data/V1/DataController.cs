@@ -1,60 +1,60 @@
-using Api.Controllers.Data.V1.Mappings;
+﻿using Api.Controllers.Data.V1.Mappings;
 using Api.Controllers.Data.V1.Models.Requests;
 using Api.Controllers.Data.V1.Models.Responses;
-using Application.Users;
+using Application.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.Data;
 
 /// <summary>
-/// Manages user resources.
+/// Manages data resources.
 /// </summary>
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{v:apiVersion}/[controller]")]
 public class DataController : ControllerBase
 {
-    private readonly IUserService _userService;
+    private readonly IDataService _dataService;
 
-    public DataController(IUserService userService)
+    public DataController(IDataService dataService)
     {
-        _userService = userService;
+        _dataService = dataService;
     }
 
     /// <summary>
-    /// Creates a new user.
+    /// Creates a new data item.
     /// </summary>
-    /// <param name="request">The user creation request containing name and age.</param>
+    /// <param name="request">The creation request containing name and age.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The ID of the newly created user.</returns>
-    /// <response code="200">User created successfully.</response>
+    /// <returns>The ID of the newly created data item.</returns>
+    /// <response code="200">Data item created successfully.</response>
     /// <response code="400">Validation failed (e.g. missing name, invalid age).</response>
     [HttpPost]
-    [ProducesResponseType(typeof(CreateUserResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(CreateDataResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<CreateUserResponse>> Create([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<CreateDataResponse>> Create([FromBody] CreateDataRequest request, CancellationToken cancellationToken)
     {
-        var userId = await _userService.Create(request.ToDomain(), cancellationToken);
+        var id = await _dataService.Create(request.ToDomain(), cancellationToken);
 
-        return Ok(new CreateUserResponse(userId));
+        return Ok(new CreateDataResponse(id));
     }
 
     /// <summary>
-    /// Retrieves a user by their unique identifier.
+    /// Retrieves a data item by its unique identifier.
     /// </summary>
-    /// <param name="id">The user's GUID.</param>
+    /// <param name="id">The data item's GUID.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The user's details.</returns>
-    /// <response code="200">User found and returned.</response>
-    /// <response code="404">No user exists with the given ID.</response>
+    /// <returns>The data item's details.</returns>
+    /// <response code="200">Data item found and returned.</response>
+    /// <response code="404">No data item exists with the given ID.</response>
     [HttpGet("{id:guid}")]
-    [ProducesResponseType(typeof(GetUserResponse), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(GetDataResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetUserResponse>> Get([FromRoute] Guid id, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetDataResponse>> Get([FromRoute] Guid id, CancellationToken cancellationToken)
     {
-        var user = await _userService.Get(id, cancellationToken);
+        var data = await _dataService.Get(id, cancellationToken);
 
-        return Ok(new GetUserResponse(user.Id, user.Name, user.Age));
+        return Ok(new GetDataResponse(data.Id, data.Name, data.Age, data.Description, data.Title, data.Content));
     }
 }

@@ -1,3 +1,0 @@
-namespace Api.Controllers.Data.V1.Models.Responses;
-
-public sealed record GetUserResponse(Guid Id, string Name, int Age);

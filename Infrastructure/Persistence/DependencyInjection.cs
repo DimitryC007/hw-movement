@@ -1,8 +1,8 @@
-using Application.Common;
-using Application.Users;
-using Domain.Users;
+﻿using Application.Common;
+using Application.Data;
+using Domain;
 using Infrastructure.Caching.Memory;
-using Infrastructure.Persistence.Users;
+using Infrastructure.Persistence.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,18 +19,16 @@ public static class DependencyInjection
         // Register database migration as a hosted service
         services.AddHostedService<DatabaseMigrationService>();
 
-        services.AddScoped<UserRepository>();
+        services.AddScoped<DataRepository>();
 
-        services.AddScoped<IUserRepository>(sp =>
+        services.AddScoped<IDataRepository>(sp =>
         {
-            var repository = sp.GetRequiredService<UserRepository>();
-            var memoryCache = sp.GetRequiredService<IMemoryCacheService<string, User>>();
+            var repository = sp.GetRequiredService<DataRepository>();
+            var memoryCache = sp.GetRequiredService<IMemoryCacheService<string, DataItem>>();
             var distributedCache = sp.GetRequiredService<IDistributedCacheService>();
 
-            return new CachedUserRepository(repository, memoryCache, distributedCache);
+            return new CachedDataRepository(repository, memoryCache, distributedCache);
         });
-
-
 
         return services;
     }

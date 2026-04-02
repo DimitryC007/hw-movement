@@ -1,6 +1,6 @@
-using Application.Users;
+using Application.Data;
+using Application.Data;
 using FluentValidation;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Application;
@@ -9,9 +9,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
-        services.AddScoped<IUserService, UserService>();
-        services.AddValidatorsFromAssemblyContaining<UserValidator>();
+        services.AddScoped<IDataService, DataService>();
+        services.AddValidatorsFromAssemblyContaining<DataValidator>();
 
         return services;
     }

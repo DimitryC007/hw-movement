@@ -1,6 +1,5 @@
 ﻿using Api;
 using System.Reflection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
 namespace WebHost;
@@ -36,11 +35,6 @@ public class Startup
                 options.IncludeXmlComments(xmlPath);
         });
 
-        services.AddAuthorization();
-
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer();
-
         services.AddApi(Configuration);
     }
 
@@ -55,7 +49,6 @@ public class Startup
 
         app.UseRouting();
 
-        app.UseAuthentication();
         app.UseAuthorization();
 
         app.UseApi();
