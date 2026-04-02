@@ -62,8 +62,8 @@ This starts three containers:
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/api/v1/users` | Create a new user |
-| `GET` | `/api/v1/users/{id}` | Get a user by ID |
+| `POST` | `/api/v1/data` | Create a new user |
+| `GET` | `/api/v1/data/{id}` | Get a user by ID |
 
 ---
 
