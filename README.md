@@ -16,7 +16,7 @@ A RESTful API built with **Clean Architecture** principles using **.NET 8**, Pos
 ### 1. Clone the repository
 
 ```bash
-git clone [<repository-url>](https://github.com/DimitryC007/hw-movement)
+git clone (https://github.com/DimitryC007/hw-movement)
 ```
 
 ### 2. Create the environment file
