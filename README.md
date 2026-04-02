@@ -16,14 +16,13 @@ A RESTful API built with **Clean Architecture** principles using **.NET 8**, Pos
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd clean-architecture-dot-net-example-master
+git clone [<repository-url>](https://github.com/DimitryC007/hw-movement)
 ```
 
 ### 2. Create the environment file
 
 ```bash
-cp .env.example .env
+copy the env file to the root project directory
 ```
 
 Edit `.env` if you need to change any ports or credentials. Key variables:
@@ -72,17 +71,17 @@ This starts three containers:
 ## Design Patterns Used
 
 ### Clean Architecture
-The solution is split into four layers with strict dependency rules — outer layers depend on inner layers, never the reverse:
+The solution is split into five layers with strict dependency rules — outer layers depend on inner layers, never the reverse:
 
 ```
-Domain  ←  Application  ←  Infrastructure  ←  WebApi / WebHost
+Domain  ←  Application  ←  Infrastructure  ←  WebApi ← WebHost
 ```
 
 - **Domain** — core entities (`User`), no dependencies
 - **Application** — business logic (`UserService`), interfaces (`IUserRepository`, `IUserService`)
 - **Infrastructure** — implementations (PostgreSQL, Redis, custom cache)
-- **WebApi / WebHost** — controllers, middleware, DI composition root
-
+- **WebApi** — controllers, middleware, DI composition root
+- **WebHost** — hosting the web api
 ---
 
 ### Repository Pattern
@@ -108,8 +107,6 @@ On every read:
 1. Check **Redis** (distributed) — return immediately if hit
 2. Check **in-memory LRU cache** — backfill Redis if hit, then return
 3. Query **PostgreSQL** — backfill both caches on success
-
-On every write, both caches are populated after the DB save.
 
 ---
 
