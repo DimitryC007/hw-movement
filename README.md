@@ -16,15 +16,13 @@ A RESTful API built with **Clean Architecture** principles using **.NET 8**, Pos
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd clean-architecture-dot-net-example-master
+git clone https://github.com/DimitryC007/hw-movement
+cd hw-movement
 ```
 
 ### 2. Create the environment file
 
-```bash
-cp .env.example .env
-```
+The `.env` file will be provided via email. Place it in the root project directory (next to `docker-compose.yml`).
 
 Edit `.env` if you need to change any ports or credentials. Key variables:
 
@@ -64,8 +62,8 @@ This starts three containers:
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/api/v1/user` | Create a new user |
-| `GET` | `/api/v1/user/{id}` | Get a user by ID |
+| `POST` | `/api/v1/users` | Create a new user |
+| `GET` | `/api/v1/users/{id}` | Get a user by ID |
 
 ---
 
@@ -109,8 +107,6 @@ On every read:
 2. Check **in-memory LRU cache** — backfill Redis if hit, then return
 3. Query **PostgreSQL** — backfill both caches on success
 
-On every write, both caches are populated after the DB save.
-
 ---
 
 ### LRU Cache
@@ -150,4 +146,3 @@ Routes are versioned via URL segments (`/api/v{version}/...`), making it safe to
 ├── WebHost/                        # Program.cs, Startup, DI composition root
 ├── docker-compose.yml
 └── .env.example
-```

@@ -12,7 +12,7 @@ namespace Api.Controllers.Users;
 /// </summary>
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/v{v:apiVersion}/[controller]")]
+[Route("api/v{v:apiVersion}/users")]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;

@@ -30,6 +30,7 @@ public class CachedUserRepository : IUserRepository
     {
         return _userRepository.AddAsync(user, cancellationToken);
     }
+
     private async Task<User?> GetOrLoadAsync(Guid id, CancellationToken cancellationToken)
     {
         var userId = id.ToString();
